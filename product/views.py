@@ -51,12 +51,17 @@ def product_detail(request, id):
                     instance.update(bid_price=value['bid_price'])
             else:
                 Bid.objects.create(user=request.user, product=prod, bid_price=value['bid_price'])
-    bids = Bid.objects.all().order_by('-bid_price')
+    bids = Bid.objects.filter(product_id=prod.id).order_by('-bid_price')
+
+    if len(bids) > 0:
+        winer = bids[0].user.username
+    else:
+        winer = None
 
     data = {
         'product': prod,
         'bids': bids,
-        'winer': bids[0].user.username,
+        'winer': winer,
     }
     return render(request, 'product/product_detail.html', data)
 
