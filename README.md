@@ -29,7 +29,8 @@
   To Visit follow this link: https://sohoj-nilam1.herokuapp.com/
   
 --- 
-# The outlook of this app is:
+- # The outlook of this app is:
+  
   ![](static/img/outlook/home1.png)
 ---
   ![](static/img/outlook/home2.png)
