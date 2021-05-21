@@ -1,0 +1,218 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load humanize %}
+{% load static %}
+{% block content %}
+
+{% if not product.remaining_time %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>This Auction Was Ended.</strong> The winer of this auction is: {{ winer }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+{% endif %}
+
+
+
+<div class="car-details-page content-area-6">
+    <div class="container">
+        <div class="row">
+            <div class="container col-lg-6 col-md-12 col-xs-12" style="height: border-box; width: border-box">
+                <div class="car-details-section">
+                    <div id="carDetailsSlider" class="carousel car-details-sliders slide mb-40">
+                        <div class="carousel-inner">
+                            {% if product.photo %}
+                            <div class="active item carousel-item" data-slide-number="0">
+                                <img src="{{ product.photo.url }}" style="max-height: 400px; min-height: 400px;" class="img-fluid" alt="slider-car">
+                            </div>
+                            {% endif %}
+                            {% if product.photo_1 %}
+                            <div class="item carousel-item" data-slide-number="1">
+                                <img src="{{ product.photo_1.url }}" style="max-height: 600px; min-height: 600px;" class="img-fluid" alt="slider-car">
+                            </div>
+                            {% endif %}
+                            {% if product.photo_2 %}
+                            <div class="item carousel-item" data-slide-number="2">
+                                <img src="{{ product.photo_2.url }}" style="max-height: 600px; min-height: 600px;" class="img-fluid" alt="slider-car">
+                            </div>
+                            {% endif %}
+                            {% if product.photo_3 %}
+                            <div class="item carousel-item" data-slide-number="4">
+                                <img src="{{ product.photo_3.url }}" style="max-height: 600px; min-height: 600px;" class="img-fluid" alt="slider-car">
+                            </div>
+                            {% endif %}
+                            {% if product.photo_4 %}
+                            <div class="item carousel-item" data-slide-number="5">
+                                <img src="{{ product.photo_4.url}}" style="max-height: 600px; min-height: 600px;" class="img-fluid" alt="slider-car">
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="carousel-indicators-section clearfix">
+                            <ul class="carousel-indicators car-properties list-inline nav nav-justified">
+                                <li class="list-inline-item active">
+                                    <a id="carousel-selector-0" class="selected" data-slide-to="0" data-target="#carDetailsSlider">
+
+                                        {% if product.photo %}
+                                        <img src="{{ product.photo.url }}" style="max-height: 120px; min-height: 120px;" class="img-fluid" alt="small-car">
+                                        {% endif %}
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a id="carousel-selector-1" data-slide-to="1" data-target="#carDetailsSlider">
+                                        {% if product.photo_1 %}
+                                        <img src="{{ product.photo_1.url }}" style="max-height: 120px; min-height: 120px;" class="img-fluid" alt="small-car">
+                                        {% endif %}
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a id="carousel-selector-2" data-slide-to="2" data-target="#carDetailsSlider">
+                                        {% if product.photo_2 %}
+                                        <img src="{{ product.photo_2.url }}" style="max-height: 120px; min-height: 120px;" class="img-fluid" alt="small-car">
+                                        {% endif %}
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a id="carousel-selector-3" data-slide-to="3" data-target="#carDetailsSlider">
+                                        {% if product.photo_3 %}
+                                        <img src="{{ product.photo_3.url }}" style="max-height: 120px; min-height: 120px;" class="img-fluid" alt="small-car">
+                                        {% endif %}
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a id="carousel-selector-4" data-slide-to="4" data-target="#carDetailsSlider">
+                                        {% if product.photo_4 %}
+                                        <img src="{{ product.photo_4.url }}" style="max-height: 120px; min-height: 120px;" class="img-fluid" alt="small-car">
+                                        {% endif %}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <div class="container col-lg-4 col-md-6 col-xs-6 card-body" style="max-width: 500px;min-width: 500px">
+
+
+                    <div class="card text-white bg-dark mb-3" style="max-width: 60rem;max-height: 100rem;">
+                      <div class="card-body">
+                        <div>
+                            <table>
+                                <tr>
+                                    <td>Owner</td>
+                                    <td>:</td>
+                                    <td>{{ product.user.username }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Product Name</td>
+                                    <td>:</td>
+                                    <td>{{ product.name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Category</td>
+                                    <td>:</td>
+                                    <td>{{ product.category }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Minimum Bid Price</td>
+                                    <td>:</td>
+                                    <td>{{ product.min_bid_price | intcomma }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Created at</td>
+                                    <td>:</td>
+                                    <td>{{ product.auction_creation_date_time | date}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Ended at</td>
+                                    <td>:</td>
+                                    <td>{{ product.auction_end_date_time | date }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Time Remaining</td>
+                                    <td>:</td>
+                                    <td style="color: red;">
+                                        {% if not product.remaining_time %}
+                                            Sorry, Time is Up
+                                        {% else %}
+                                            {{ product.remaining_time | naturaltime }}
+                                        {% endif %}
+                                    </td>
+
+                                </tr>
+                            </table>
+                            <hr class="solid" color="white">
+                            <table>
+                                <tr>
+                                    <td>Your Bid</td>
+                                    <td>:</td>
+                                    <td>
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            {% if not product.remaining_time %}
+                                                <input type="text" name="bid_price" disabled>
+                                                <input class="btn-primary" type="submit" value="Submit" disabled>
+                                            {% else %}
+                                                <input type="text" name="bid_price">
+                                                <input class="btn-primary" type="submit" value="Submit">
+                                            {% endif %}
+
+                                        </form>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                      </div>
+                    </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="tabbing tabbing-box mb-40">
+                <div class="tab-content" id="carTabContent">
+                    <div class="tab-pane fade active show" id="one" role="tabpanel" aria-labelledby="one-tab">
+                        <div class="car-description mb-50">
+                            <h3 class="heading-2">
+                                Description
+                            </h3>
+                            <p>
+                                {{ product.description | safe  }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row align-content-center">
+            <div class="tabbing tabbing-box mb-40">
+
+                <h3>Current Bid Status</h3>
+            </div>
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">S/L</th>
+                  <th scope="col">Bid Owner</th>
+                  <th scope="col">Bid Price</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for bid in bids %}
+                  <tr>
+                     <th scope="row">{{ forloop.counter }}</th>
+                     <td>{{ bid.user.username }}</td>
+                     <td>{{ bid.bid_price }}</td>
+                   </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

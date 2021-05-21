@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+{% block content %}
+    <div class="container" style="padding-top: 100px;padding-bottom: 100px;">
+        <div class="card" style="padding-left: 100px;padding-right: 100px; background-color: gray;">
+          <div class="header" style="text-align: center; padding-top: 50px;padding-bottom: 50px;">
+            <h3>Add Product Form</h3>
+          </div>
+          <form method="post">
+              <div class="form-group">
+                <label for=""><b>{{ form.name.label }}</b></label>
+{#                <input type="text" class="form-control" id="product-name" name="name">#}
+                  {{form.name }}
+              </div>
+              <div class="form-group">
+                <label for=""><b>Minimum Bid Price</b></label>
+{#                <input type="number" class="form-control" id="product-price" name="price">#}
+                  {{form.min_bid_price }}
+              </div>
+              <div class="form-group">
+                <label for=""><b>Example textarea</b></label>
+{#                <textarea class="form-control" id="product-description" rows="5" name="description"></textarea>#}
+                  {{form.description }}
+              </div>
+{#              <div class="form-group">#}
+{#                <label><b>Enter Screen Photo :</b> </label>#}
+{#                <input type="file" id="product-image" name="screen-image">#}
+{#                  {{form.photo | as_crispy_field }}#}
+{#              </div>#}
+{#              <div class="form-group">#}
+{#                <label><b>Enter 1'st Sub-Photo :</b> </label>#}
+{#                <input type="file" id="product-image" name="image-1">#}
+{#                  {{form.photo_1 | as_crispy_field }}#}
+{#              </div>#}
+{#              <div class="form-group">#}
+{#                <label><b>Enter 2'nd Sub-Photo :</b> </label>#}
+{#                <input type="file" id="product-image" name="image-2">#}
+{#                  {{form.photo_2 | as_crispy_field }}#}
+{#              </div>#}
+{#              <div class="form-group">#}
+{#                <label><b>Enter 3'rd Sub-Photo :</b> </label>#}
+{#                <input type="file" id="product-image" name="image-3">#}
+{#                  {{form.photo_3 | as_crispy_field }}#}
+{#              </div>#}
+{#              <div class="form-group">#}
+{#                <label><b>Enter 4'th Sub-Photo :</b> </label>#}
+{#                <input type="file" id="product-image" name="image-4">#}
+{#                  {{form.photo_4 | as_crispy_field }}#}
+{#              </div>#}
+{#              <div class="form-group">#}
+{#                <label for="">Product Category</label>#}
+{#                <input type="text" class="form-control" id="product-category" name="category">#}
+{#                  {{form.category | as_crispy_field }}#}
+{#              </div>#}
+{#              <div class="form-group">#}
+{#                  <label for=""><b>Auction Created At</b></label>#}
+{#                    <input class="form-control" type="datetime-local" id="create-time">#}
+{#                  {{form.auction_creation_date_time | as_crispy_field }}#}
+{#              </div>#}
+{#              <div class="form-group">#}
+{#                  <label for=""><b>Auction Ended At</b></label>#}
+{#                    <input class="form-control" type="datetime-local"  id="create-time">#}
+{#                  {{form.auction_end_date_time | as_crispy_field }}#}
+{#              </div>#}
+              <div style="text-align: center; padding-top: 30px; padding-bottom: 50px;">
+                  <input class="btn btn-success" style="padding: 10px;width: 150px;" type="submit" value="Submit">
+              </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

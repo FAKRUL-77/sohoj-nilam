@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block content %}
+
+<div class="featured-car content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-12">
+                <div class="row">
+                    {% for product in products %}
+                    <div class="col-lg-4 col-md-4">
+                        <div class="car-box-3">
+                            <div class="car-thumbnail">
+                                <a href="{% url 'product_detail' product.id %}" class="car-img">
+                                    <div class="tag">For Auction</div>
+                                    <div class="price-box">
+                                        <span>TK {{ product.min_bid_price | intcomma }}</span>
+                                    </div>
+                                    {% if product.photo %}
+                                    <img class="d-block w-100" src="{{ product.photo.url }}" style="max-height: 300px;min-height: 300px;" alt="car">
+                                    {% endif %}
+                                </a>
+                                <div class="carbox-overlap-wrapper">
+                                    <div class="overlap-box">
+                                        <div class="overlap-btns-area">
+                                            <div class="car-magnify-gallery">
+                                                {% if product.photo %}
+                                                <a href="{{ product.photo.url }}" class="overlap-btn">
+                                                    <i class="fa fa-expand"></i>
+                                                    <img class="hidden" src="{{ product.photo.url }}">
+                                                </a>
+                                                {% endif %}
+                                                {% if product.photo_1 %}
+                                                <a href="{{ product.photo_1.url }}" class="hidden" >
+                                                    <img class="hidden" src="{{ product.photo_1.url }}">
+                                                </a>
+                                                {% endif %}
+                                                {% if product.photo_2 %}
+                                                <a href="{{ product.photo_2.url }}" class="hidden">
+                                                    <img class="hidden" src="{{ product.photo_2.url }}">
+                                                </a>
+                                                {% endif %}
+                                                {% if product.photo_3 %}
+                                                <a href="{{ product.photo_3.url }}" class="hidden">
+                                                    <img class="hidden" src="{{ product.photo_3.url }}">
+                                                </a>
+                                                {% endif %}
+                                                {% if product.photo_4 %}
+                                                <a href="{{ product.photo_4.url }}" class="hidden" >
+                                                    <img class="hidden" src="{{ product.photo.url }}">
+                                                </a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="detail">
+                                <h1 class="title">
+                                    <a href="{% url 'product_detail' product.id %}">{{ product.name }}</a>
+                                </h1>
+                                <ul class="facilities-list clearfix">
+                                    <li>{{ product.category }}</li>
+                                    <li>End Date: {{ product.auction_end_date_time | date }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+                <!-- Page navigation start -->
+                <div class="pagination-box p-box-2 text-center">
+                    <nav aria-label="Page navigation example">
+                        {% if products.has_other_pages %}
+                        <ul class="pagination">
+                            {% if products.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ products.previous_page_number }}"><i class="fa fa-angle-left"></i></a>
+                            </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="#"><i class="fa fa-angle-left"></i></a>
+                                </li>
+                            {% endif %}
+
+                            {% for i in products.paginator.page_range %}
+                                {% if products.number == i %}
+                                    <li class="page-item"><a class="page-link active" href="#">{{ i }}</a></li>
+                                {% else %}
+                                     <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if products.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ products.next_page_number }}"><i class="fa fa-angle-right"></i></a>
+                            </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="#"><i class="fa fa-angle-right"></i></a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                        {% endif %}
+                    </nav>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
