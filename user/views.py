@@ -1,10 +1,9 @@
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.contrib.auth.views import LogoutView
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from .forms import CreateUserForm, PlaceBidForm
+from .forms import CreateUserForm
 # Create your views here.
 
 

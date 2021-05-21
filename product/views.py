@@ -12,7 +12,7 @@ from user.models import Bid
 def home(request):
 
     if not request.user.is_authenticated:
-        return render(request, 'user/login.html')
+        return redirect('login')
 
     prod = Product.objects.order_by()
     paginator = Paginator(prod, 6)
@@ -25,9 +25,6 @@ def home(request):
 
 
 def myProduct(request):
-    if not request.user.is_authenticated:
-        return render(request, 'user/login.html')
-
     prod = Product.objects.filter(user_id=request.user.id)
     paginator = Paginator(prod, 6)
     page = request.GET.get('page')
