@@ -1,6 +1,6 @@
 #Online Auction Site Using Djagno
 ## Steup
-- ####It is best to use the python virtualenv tool to build locally:
+- #### It is best to use the python virtualenv tool to build locally:
         https://github.com/FAKRUL-77/sohoj-nilam.git
         Use "cd SohojNilam" to go inside the project directory   
 ---
