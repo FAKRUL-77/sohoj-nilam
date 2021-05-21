@@ -1300,10 +1300,7 @@ input[type=checkbox]:checked + label:before {
     z-index: 9999;
 }
 
-.search-contents{
-    transition: all 0.4 s;
-    display: block;
-}
+
 
 .bootstrap-select .dropdown-toggle .filter-option {
     position: absolute;
@@ -2004,26 +2001,6 @@ input[type=checkbox]:checked + label:before {
 
 .category_long_bg {
     height: 515px;
-}
-
-.cat-1-bg {
-    background-image: url(../img/latest-offers/img-1.jpg);
-}
-
-.cat-2-bg {
-    background-image: url(../img/latest-offers/img-2.jpg);
-}
-
-.cat-3-bg {
-    background-image: url(../img/latest-offers/img-3.jpg);
-}
-
-.cat-4-bg {
-    background-image: url(../img/latest-offers/img-4.jpg);
-}
-
-.cat-5-bg {
-    background-image: url(../img/latest-offers/img-5.jpg);
 }
 
 .category:hover .category_bg_box {
@@ -3342,10 +3319,7 @@ input[type=checkbox]:checked + label:before {
     background: #dc4e41!important;
 }
 
-.our-team-2{
-    background: rgba(0, 0, 0, 0.04) url(../img/bg-img-6.jpg) top left repeat;
-    background-size: cover;
-}
+
 
 /** Team 2 start **/
 .team-2 {
@@ -3681,10 +3655,7 @@ input[type=checkbox]:checked + label:before {
     right: 0;
 }
 
-.blog-section {
-    background: rgba(0, 0, 0, 0.04) url(../img/bg-img-6.jpg) top left repeat;
-    background-size: cover;
-}
+
 
 /** Blog 1 start **/
 .date-box {
@@ -4315,14 +4286,7 @@ footer {
 }
 
 /** Counters start **/
-.counters {
-    padding: 80px 0 50px;
-    background: url(../img/car-6.jpg);
-    z-index: 0;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+
 
 .counter-box {
     text-align: center;
@@ -4355,15 +4319,7 @@ footer {
 }
 
 /** Counters 2 start **/
-.counters-2 {
-    padding: 100px 0 70px;
-    background: url(../img/car-7.jpg);
-    z-index: 0;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-}
+
 
 .counter-box-2{
     position: relative;
@@ -4438,25 +4394,6 @@ footer {
     margin-top: 50px;
 }
 
-.service-section{
-    background: rgba(0, 0, 0, 0.04) url(../img/bg-img-6.jpg) top left repeat;
-    background-size: cover;
-    width: 100%;
-}
-
-/** Service section 2 start **/
-.service-section-2 {
-    background: rgba(0, 0, 0, 0.04) url(../img/bg-img-6.jpg) top left repeat;
-    background-size: cover;
-    width: 100%;
-    padding: 100px 0 70px;
-}
-.featured-car.content-area{
-    background: rgba(0, 0, 0, 0.04) url(../img/bg-img-6.jpg) top left repeat;
-    background-size: cover;
-    width: 100%;
-    padding: 100px 0 70px;
-}
 
 .service-box ul{
     margin-bottom: 20px;
@@ -4477,15 +4414,7 @@ footer {
 }
 
 /** Testimonial 2 start **/
-.testimonial-2 {
-    opacity: 1;
-    background: rgba(0, 0, 0, 0.04) url(../img/car-10.jpg) top left repeat;
-    z-index: 0;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-}
+
 
 .testimonial-2:before {
     position: absolute;
@@ -4563,15 +4492,7 @@ footer {
 }
 
 /** Testimonial 3 start **/
-.testimonial-3 {
-    padding: 100px 0;
-    background: url(../img/car-10.jpg);
-    z-index: 0;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-}
+
 
 .testimonial-3:before {
     position: absolute;
@@ -4890,26 +4811,7 @@ footer {
     margin-bottom: 0;
 }
 
-/** Coming soon start **/
-.coming-soon {
-    background: rgba(0, 0, 0, 0.04) url(../img/car-1.jpg) top left repeat;
-    background-size: cover;
-    top: 0;
-    width: 100%;
-    bottom: 0;
-    opacity: 1;
-    min-height: 100vh;
-    text-align: center;
-    position: relative;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 0;
-}
+
 
 .coming-soon .coming-soon-info{
     max-width: 500px;
@@ -6066,17 +5968,7 @@ footer {
     padding: 12px 30px 12px 30px;
 }
 
-/** Sub Banner start **/
-.sub-banner {
-    background: rgba(0, 0, 0, 0.04) url(../img/car-1.jpg) top left repeat;
-    background-size: cover;
-    height: 360px;
-    background-position: center center;
-    background-repeat: no-repeat;
-    position: relative;
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-}
+
 
 .sub-banner .breadcrumb-area {
     letter-spacing: 1px;
@@ -6174,16 +6066,6 @@ footer {
     font-family: 'Roboto', sans-serif;
 }
 
-/** Details banner start **/
-.details-banner{
-    background: rgba(0, 0, 0, 0.04) url(../img/car-11.jpg) top left repeat;
-    background-size: cover;
-    height: 550px;
-    background-position: center center;
-    background-repeat: no-repeat;
-    position: relative;
-    font-family: 'Roboto', sans-serif;
-}
 
 .details-banner .text h1 {
     font-size: 43px;
