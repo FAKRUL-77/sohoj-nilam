@@ -31,11 +31,18 @@
 --- 
 # The outlook of this app is:
   ![](static/img/outlook/home1.png)
+---
   ![](static/img/outlook/home2.png)
+---
   ![](static/img/outlook/product_detail_1.png)
+---
   ![](static/img/outlook/product_detail_2.png)
+---
   ![](static/img/outlook/product_image_preview.png)
+---
   ![](static/img/outlook/add_product_form.png)
+---
   ![](static/img/outlook/login.png)
+---
   ![](static/img/outlook/admin1.png)
   
