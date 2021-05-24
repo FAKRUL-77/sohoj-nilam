@@ -1,7 +1,11 @@
 var data = document.getElementById('data').innerText;
 
-        data = JSON.parse(data)
-        console.log(data['data'])
+        Data = JSON.parse(data)
+        console.log(Data['data'])
+
+        instance = Data['data']
+
+        date = new Date(instance[0]['day']);
 
         am4core.ready(function() {
 
@@ -13,14 +17,13 @@ var data = document.getElementById('data').innerText;
 
         var data = [];
         var value = 50;
-        for(var i = 0; i < 300; i++){
-          var date = new Date();
-          date.setHours(0,0,0,0);
-          date.setDate(i);
-          value -= Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
+        for(var i = 0; i < instance.length; i++){
+          var date = new Date(instance[i]['day']);
+          value = instance[i]['available']
+
           data.push({date:date, value: value});
         }
-        console.log(data)
+
         chart.data = data;
 
 
@@ -42,7 +45,6 @@ var data = document.getElementById('data').innerText;
         chart.cursor.snapToSeries = series;
         chart.cursor.xAxis = dateAxis;
 
-        chart.scrollbarY = new am4core.Scrollbar();
         chart.scrollbarX = new am4core.Scrollbar();
 
         });

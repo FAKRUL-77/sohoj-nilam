@@ -94,7 +94,11 @@ def adminDashboard(request):
                .annotate(available=Count('auction_end_date_time'))
 
     import json
-    context = {
+    data = {
         "data": list(queryset)
     }
-    return render(request, 'admin/dashboard.html', {"data": json.dumps(context)})
+    context = {
+        'data': json.dumps(data),
+    }
+
+    return render(request, 'admin/dashboard.html', context)
