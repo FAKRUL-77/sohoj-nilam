@@ -79,3 +79,7 @@ def addProduct(request):
         return redirect('/')
 
     return render(request, 'product/add_product.html')
+
+
+def adminDashboard(request):
+    return render(request, 'admin/dashboard.html')
