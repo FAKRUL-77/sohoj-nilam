@@ -1,9 +1,16 @@
+import datetime
+import json
 from copy import copy
 
+from django.core import serializers
 from django.core.paginator import Paginator
+from django.db.models import Count
+from django.forms import model_to_dict
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.db.models.functions import ExtractIsoWeekDay, ExtractDay, TruncDay
+from django.utils.safestring import mark_safe
 
-# Create your views here.
 from product.forms import ProductForm
 from product.models import Product
 from user.models import Bid
@@ -82,4 +89,12 @@ def addProduct(request):
 
 
 def adminDashboard(request):
-    return render(request, 'admin/dashboard.html')
+
+    queryset = Product.objects.extra(select={'day': 'date( auction_end_date_time )'}).values('day') \
+               .annotate(available=Count('auction_end_date_time'))
+
+    import json
+    context = {
+        "data": list(queryset)
+    }
+    return render(request, 'admin/dashboard.html', {"data": json.dumps(context)})
