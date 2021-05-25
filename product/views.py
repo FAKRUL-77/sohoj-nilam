@@ -74,8 +74,10 @@ def addProduct(request):
         instance = request.POST
         instance = copy(instance)
         instance['user'] = request.user
+        instance['is_running'] = True
         files = request.FILES
         form = ProductForm(instance, files)
+        print(form.errors)
         if form.is_valid():
             form.save()
 
