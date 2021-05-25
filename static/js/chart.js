@@ -10,7 +10,8 @@ end_instance = JSON.parse(end_data)
 create_instance = create_instance['data']
 end_instance = end_instance['data']
 
-console.log(create_instance[0]['count'])
+console.log(create_instance)
+console.log(end_instance)
 
 
 dict = {}
@@ -49,10 +50,12 @@ for(var key in dict) {
     }
 }
 
-console.log(data_list)
-
-console.log( data_list[0]['day'])
-console.log(typeof data_list[0]['day'])
+// console.log(data_list)
+//
+// console.log(data_list)
+//
+// console.log( data_list[0]['day'])
+// console.log(typeof data_list[0]['day'])
 
 
 am4core.ready(function() {

@@ -106,6 +106,8 @@ def adminDashboard(request):
             .annotate(count=Count('auction_end_date_time'))
         auction_end_info = json.dumps({"data": list(queryset_1)})
 
+        print()
+
         running_auction = Product.objects.filter(is_running=True)
         running_auction_count = len(running_auction)
         total = 0
