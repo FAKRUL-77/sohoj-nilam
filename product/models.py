@@ -22,10 +22,12 @@ class Product(models.Model):
     category = models.CharField(max_length=100)
     auction_creation_date_time = models.DateTimeField(default=datetime.now, blank=True)
     auction_end_date_time = models.DateTimeField(default=datetime.now, blank=True)
+    is_running = models.BooleanField(default=True)
 
     def remaining_time(self):
         time = self.auction_end_date_time - timezone.now()
         if time.days < 0:
+            self.is_running = False
             return False
         else:
             return time

@@ -1,19 +1,12 @@
-import datetime
-import json
 from copy import copy
-
-from django.core import serializers
 from django.core.paginator import Paginator
-from django.db.models import Count
-from django.forms import model_to_dict
-from django.http import JsonResponse
+from django.db.models import Count, Sum
 from django.shortcuts import render, get_object_or_404, redirect
-from django.db.models.functions import ExtractIsoWeekDay, ExtractDay, TruncDay
-from django.utils.safestring import mark_safe
 
 from product.forms import ProductForm
 from product.models import Product
 from user.models import Bid
+import json
 
 
 def home(request):
@@ -36,6 +29,7 @@ def myProduct(request):
     paginator = Paginator(prod, 6)
     page = request.GET.get('page')
     paged_prod = paginator.get_page(page)
+
     data = {
         'products': paged_prod,
     }
@@ -49,7 +43,7 @@ def product_detail(request, id):
         if int(value['bid_price']) >= int(prod.min_bid_price):
             prev_bid = Bid.objects.filter(user_id=request.user.id, product=prod)
             l = len(prev_bid)
-            print(l)
+            # print(l)
             if l:
                 instance = Bid.objects.filter(user=request.user, product=prod)
                 new_value = str(value['bid_price'])
@@ -90,15 +84,32 @@ def addProduct(request):
 
 def adminDashboard(request):
 
+    auction_value_by_timedate = Product.objects.extra(select={'day': 'date( auction_end_date_time )'}).values('day').annotate(
+        price=Sum('min_bid_price'))
+    auction_by_datetime = json.dumps({"data": list(auction_value_by_timedate)})
+
+    auction_value_by_date = Product.objects.extra(select={'day': 'datetime( auction_end_date_time )'}).values('day').annotate(
+        price=Sum('min_bid_price'))
+    auction_by_date = json.dumps({"data": list(auction_value_by_date)})
+
     queryset = Product.objects.extra(select={'day': 'date( auction_end_date_time )'}).values('day') \
                .annotate(available=Count('auction_end_date_time'))
+    data = json.dumps({"data": list(queryset)})
 
-    import json
-    data = {
-        "data": list(queryset)
-    }
+    running_auction = Product.objects.filter(is_running=True)
+    running_auction_count = len(running_auction)
+    total = 0
+    for i in running_auction:
+        total += i.min_bid_price
+
+
+
     context = {
-        'data': json.dumps(data),
+        'data': data,
+        'running_auction': running_auction_count,
+        'running_value': total,
+        'auction_by_datetime': auction_by_datetime,
+        'auction_by_date': auction_by_date,
     }
 
     return render(request, 'admin/dashboard.html', context)

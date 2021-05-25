@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
 
 {% load  static %}
+{% load humanize %}
 
 
 {% block content %}
 
 <div id="data" style="display: none">{{ data }}</div>
+<div id="auction_by_datetime" style="display: none">{{ auction_by_datetime }}</div>
+<div id="auction_by_date" style="display: none">{{ auction_by_date }}</div>
+
 <div class="main-content" id="panel">
-    <div class="header pb-6" style="background-color: #3b589e">
+    <div class="header pb-6" style="background-color: #3b589e; margin: 15px;">
       <div class="container-fluid">
         <div class="header-body" style="padding-top: 50px;padding-bottom: 40px; align-content: center;">
 
@@ -18,7 +22,7 @@
                   <div class="row">
                     <div class="col" style="text-align: center;">
                       <h5 class="card-title text-uppercase text-muted mb-0"><b>Total running auction</b></h5>
-                      <span class="h2 font-weight-bold mb-0">350,897</span>
+                      <span class="h2 font-weight-bold mb-0">{{ running_auction }}</span>
                     </div>
                   </div>
                 </div>
@@ -31,7 +35,7 @@
                   <div class="row">
                     <div class="col" style="text-align: center;">
                       <h5 class="card-title text-uppercase text-muted mb-0"><b>Total Amount</b></h5>
-                      <span class="h2 font-weight-bold mb-0">2,356</span>
+                      <span class="h2 font-weight-bold mb-0">{{ running_value | intcomma }}</span>
                     </div>
                   </div>
                 </div>
@@ -41,12 +45,58 @@
         </div>
       </div>
     </div>
-    <div style="background-color: #0c5460">
-        <div style="text-align: center; margin-top: 50px; padding-top: 30px;-webkit-text-fill-color: whitesmoke">
-            <h2>Auction Added OverView</h2>
+
+
+    <div class="container-fluid">
+        <div class="header-body" style="padding-top: 50px;padding-bottom: 40px; align-content: center;">
+          <div class="row">
+            <div class="col-xl-6 col-md-6">
+              <div class="card card-stats">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col" style="text-align: center;">
+                        <div>
+                            <h2>Auction Added OverView</h2>
+                        </div>
+                        <hr>
+                        <div style="background-color: #0c5460;">
+                            <div id="chartdiv" style="padding-right: 5px;" ></div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-6 col-md-6">
+              <div class="card card-stats">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col" style="text-align: center;">
+                        <div>
+                            <h2>Auction Added OverView</h2>
+                        </div>
+                        <hr>
+                        <div style="background-color: #0c5460; height: 500px;width: 100%">
+                             <div>
+                                <select class="dropdown" id="dropdown" style="margin-top: 10px;">
+                                    <option value="" selected="selected">Select Time Format</option>
+                                    <option value="dropdown_date">Day</option>
+                                    <option value="dropdown_datetime">Hour</option>
+                                </select>
+                            </div>
+                            <div id="barChart" style="padding-right: 5px;height: 480px;width: 100%" ></div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div id="chartdiv" style="padding-right: 50px;"></div>
     </div>
+
+
 </div>
 
 {% endblock %}
