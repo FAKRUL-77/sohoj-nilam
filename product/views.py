@@ -1,6 +1,8 @@
 from copy import copy
+import datetime
+
 from django.core.paginator import Paginator
-from django.db.models import Count, Sum
+from django.db.models import Count, Sum, Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 
@@ -11,7 +13,6 @@ import json
 
 
 def home(request):
-
     if not request.user.is_authenticated:
         return redirect('login')
 
@@ -84,19 +85,26 @@ def addProduct(request):
 
 
 def adminDashboard(request):
-
     if request.user.is_staff:
-        auction_value_by_timedate = Product.objects.extra(select={'day': 'date( auction_end_date_time )'}).values('day').annotate(
+        auction_value_by_timedate = Product.objects.extra(select={'day': 'date( auction_end_date_time )'}).values(
+            'day').annotate(
             price=Sum('min_bid_price'))
         auction_by_datetime = json.dumps({"data": list(auction_value_by_timedate)})
 
-        auction_value_by_date = Product.objects.extra(select={'day': 'datetime( auction_end_date_time )'}).values('day').annotate(
+        auction_value_by_date = Product.objects.extra(select={'day': 'datetime( auction_end_date_time )'}).values(
+            'day').annotate(
             price=Sum('min_bid_price'))
         auction_by_date = json.dumps({"data": list(auction_value_by_date)})
 
-        queryset = Product.objects.extra(select={'day': 'date( auction_end_date_time )'}).values('day') \
-                   .annotate(available=Count('auction_end_date_time'))
-        data = json.dumps({"data": list(queryset)})
+        queryset = Product.objects.extra(select={'day': 'date( auction_creation_date_time )'}).values('day') \
+            .annotate(count=Count('auction_creation_date_time'))
+        auction_create_info = json.dumps({"data": list(queryset)})
+
+        queryset_1 = Product.objects.filter(
+            Q(auction_end_date_time__lte=datetime.date.today() - datetime.timedelta(days=1))).extra(
+            select={'day': 'date( auction_end_date_time )'}).values('day') \
+            .annotate(count=Count('auction_end_date_time'))
+        auction_end_info = json.dumps({"data": list(queryset_1)})
 
         running_auction = Product.objects.filter(is_running=True)
         running_auction_count = len(running_auction)
@@ -104,10 +112,9 @@ def adminDashboard(request):
         for i in running_auction:
             total += i.min_bid_price
 
-
-
         context = {
-            'data': data,
+            'data': auction_create_info,
+            'auction_end_data': auction_end_info,
             'running_auction': running_auction_count,
             'running_value': total,
             'auction_by_datetime': auction_by_datetime,
