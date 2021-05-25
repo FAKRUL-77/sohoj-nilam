@@ -12,7 +12,7 @@
             <div class="navbar-collapse collapse w-100" id="navbar">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a 
+                        <a
                             {% if '/' == request.path %}
                                 class="nav-link active"
                             {% else %}
@@ -23,7 +23,21 @@
                         </a>
                     </li>
 
+                {% if request.user.is_authenticated and request.user.is_staff %}
+                    <li class="nav-item">
+                        <a
+                            {% if '/admin-dashboard/' == request.path %}
+                                class="nav-link active"
+                            {% else %}
+                                class="nav-link"
+                            {% endif %}
+                            href="{% url 'dashboard' %}">
+                            Dashboard
+                        </a>
+                    </li>
+                {% endif %}
 
+                {% if request.user.is_authenticated and not request.user.is_staff %}
                     <li class="nav-item">
                         <a
                             {% if "/my_product/"  == request.path %}
@@ -35,7 +49,8 @@
                             My Product
                         </a>
                     </li>
-
+                {% endif %}
+                {% if request.user.is_authenticated and not request.user.is_staff %}
                     <li class="nav-item">
                         <a
                                 {% if '/add_product/' == request.path %}
@@ -47,6 +62,7 @@
                             Add Product
                         </a>
                     </li>
+                {% endif %}
 
                     {% if request.user.is_authenticated %}
                      <li class="nav-item nav-link" >

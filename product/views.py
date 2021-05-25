@@ -1,6 +1,7 @@
 from copy import copy
 from django.core.paginator import Paginator
 from django.db.models import Count, Sum
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 
 from product.forms import ProductForm
@@ -84,32 +85,35 @@ def addProduct(request):
 
 def adminDashboard(request):
 
-    auction_value_by_timedate = Product.objects.extra(select={'day': 'date( auction_end_date_time )'}).values('day').annotate(
-        price=Sum('min_bid_price'))
-    auction_by_datetime = json.dumps({"data": list(auction_value_by_timedate)})
+    if request.user.is_staff:
+        auction_value_by_timedate = Product.objects.extra(select={'day': 'date( auction_end_date_time )'}).values('day').annotate(
+            price=Sum('min_bid_price'))
+        auction_by_datetime = json.dumps({"data": list(auction_value_by_timedate)})
 
-    auction_value_by_date = Product.objects.extra(select={'day': 'datetime( auction_end_date_time )'}).values('day').annotate(
-        price=Sum('min_bid_price'))
-    auction_by_date = json.dumps({"data": list(auction_value_by_date)})
+        auction_value_by_date = Product.objects.extra(select={'day': 'datetime( auction_end_date_time )'}).values('day').annotate(
+            price=Sum('min_bid_price'))
+        auction_by_date = json.dumps({"data": list(auction_value_by_date)})
 
-    queryset = Product.objects.extra(select={'day': 'date( auction_end_date_time )'}).values('day') \
-               .annotate(available=Count('auction_end_date_time'))
-    data = json.dumps({"data": list(queryset)})
+        queryset = Product.objects.extra(select={'day': 'date( auction_end_date_time )'}).values('day') \
+                   .annotate(available=Count('auction_end_date_time'))
+        data = json.dumps({"data": list(queryset)})
 
-    running_auction = Product.objects.filter(is_running=True)
-    running_auction_count = len(running_auction)
-    total = 0
-    for i in running_auction:
-        total += i.min_bid_price
+        running_auction = Product.objects.filter(is_running=True)
+        running_auction_count = len(running_auction)
+        total = 0
+        for i in running_auction:
+            total += i.min_bid_price
 
 
 
-    context = {
-        'data': data,
-        'running_auction': running_auction_count,
-        'running_value': total,
-        'auction_by_datetime': auction_by_datetime,
-        'auction_by_date': auction_by_date,
-    }
+        context = {
+            'data': data,
+            'running_auction': running_auction_count,
+            'running_value': total,
+            'auction_by_datetime': auction_by_datetime,
+            'auction_by_date': auction_by_date,
+        }
 
-    return render(request, 'admin/dashboard.html', context)
+        return render(request, 'admin/dashboard.html', context)
+    else:
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
