@@ -29,6 +29,7 @@
     <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
 
     <!-- Custom stylesheet -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
@@ -77,6 +78,11 @@
 <script  src="{% static 'js/chart.js' %}"></script>
 <script  src="{% static 'js/bar-chart.js' %}"></script>
 
+<script>
+    $( document ).ready(function() {
+        dropdownFunction('dropdown_date');
+    });
+</script>
 
 
 {% include 'includes/footer.html' %}

@@ -1,9 +1,9 @@
 var data = document.getElementById('data').innerText;
 
 Data = JSON.parse(data)
-console.log(Data['data'])
+// console.log(Data['data'])
 instance = Data['data']
-console.log(instance)
+  // console.log(instance)
 date = new Date(instance[0]['day']);
 
 am4core.ready(function() {
