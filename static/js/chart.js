@@ -1,5 +1,5 @@
-var create_data = document.getElementById('auction_end_data').innerText;
-var end_data = document.getElementById('data').innerText;
+var create_data = document.getElementById('data').innerText;
+var end_data = document.getElementById('auction_end_data').innerText;
 //
 // console.log(create_data)
 // console.log(end_data)
