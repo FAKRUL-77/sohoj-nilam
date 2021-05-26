@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from django.utils import timezone
 
 from django.contrib.auth.models import User
@@ -20,8 +20,8 @@ class Product(models.Model):
     photo_4 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
     min_bid_price = models.IntegerField()
     category = models.CharField(max_length=100)
-    auction_creation_date_time = models.DateTimeField(auto_now_add=True)
-    auction_end_date_time = models.DateTimeField(auto_now_add=True)
+    auction_creation_date_time = models.DateTimeField(default=datetime.now, blank=True)
+    auction_end_date_time = models.DateTimeField(default=datetime.now, blank=True)
     is_running = models.BooleanField(default=True)
 
     def remaining_time(self):
